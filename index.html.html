@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo IMC</title>
+</head>
+<body>
+    <h1>Cálculo IMC</h1>
+    <p>Digite sua altura</p>
+    <input type="number" id="alturaDigitada">
+    <p>Digite seu peso</p>
+    <input type="number" id="pesoDigitado">
+    <p><button onclick="calcularIMC()" id="botaoIMC">Calcular IMC</button></p>
+    <p id="resultado"></p>
+    <p id="descricaoresultado"></p>
+    <img id="imagemresultado" alt="Imagem do resultado" style="display: none;">
+    <hr>
+    <p><button class="tema-troca-btn" onclick="trocarTema()">Modo Escuro</button></p>
+
+    <script>
+     function IMC(peso, altura) {
+        const IMC = (peso / altura**2).toFixed(2)
+        descricaoIMC(IMC)
+        return IMC
+     }   
+     function calcularIMC() {
+       const alturaDigitada = document.getElementById("alturaDigitada").value;
+       const pesoDigitado = document.getElementById("pesoDigitado").value;
+       let resultado = IMC(pesoDigitado, alturaDigitada)
+       document.getElementById("resultado").textContent = `Seu IMC é ${resultado}`
+     }
+
+     function descricaoIMC(imc) {
+        let imcFloat = parseFloat(imc)
+
+        if (imcFloat < 18.5) {
+            document.getElementById("descricaoresultado").textContent = "Você está abaixo da faixa de peso ideal."
+            document.getElementById("imagemresultado").src = "imc_abaixa.jpg.jpeg"
+            document.getElementById("imagemresultado").style.display = "block"
+        } else if(imcFloat < 25) {
+            document.getElementById("descricaoresultado").textContent = "Você está dentro na faixa de peso ideal."
+            document.getElementById("imagemresultado").src = "imc_normal.jpg.jpge"
+            document.getElementById("imagemresultado").style.display = "block"
+        } else {
+            document.getElementById("descricaoresultado").textContent = "Você está acima na faixa de peso ideal."
+            document.getElementById("imagemresultado").src = "th.jfif"
+            document.getElementById("imagemresultado").style.display = "block"
+            
+        }
+     }
+
+     function trocarTema() {
+        const body = document.body
+        const button = document.querySelector(".tema-troca-btn")
+
+        body.classList.toggle('dark')
+        body.classList.toggle('light')
+
+        if (body.classList.contains('dark')) {
+            button.textContent = "Modo Claro"
+        } else
+            button.textContent = "Modo Escuro"
+     }
+    </script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+
+        padding: 20px;
+    }
+
+    .dark {
+        background-color: rgb(22, 22, 24);
+        color: white;
+    }
+
+    button {
+        background-color: #04AA6D;
+        /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 3px;
+    }
+
+    .dark button {
+        background-color: #19382d;
+        color: rgb(196, 169, 169);
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+
+
+</body>
+</html>
